@@ -1,0 +1,19 @@
+{
+  "name": "namastereact-proper",
+  "version": "1.0.0",
+  "description": "This is React By Tahsim Akram",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TahsimAkram/NamasteReact.git"
+  },
+  "keywords": [],
+  "author": "Tahsim Akram",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.11.0"
+  }
+}
