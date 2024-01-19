@@ -1,0 +1,44 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+}
+.logo{
+    width: 30%;
+    height: 90%
+}
+
+.nav-bar > ul{
+    display: flex;
+}
+
+.nav-bar > ul > li{
+    padding: 20px;
+    list-style-type: none;
+}
+
+.restaurant-display{
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.pamphlet{
+    width: 250px;
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 20px;
+}
+
+.pamphlet > img {
+    width:250px;
+    height:170px;
+    border-radius: 10px;
+}
+
+.pamphlet > h3{
+    font-size: 15px;
+    margin:0px;
+    margin-left: 10px;
+    line-height: 1.4em;
+}
