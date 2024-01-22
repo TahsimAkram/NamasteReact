@@ -1,9 +1,14 @@
 import Card from "./Card";
 import { useEffect, useState } from "react";
 import ShimmerUi from "./ShimmerUi";
+import { Link } from "react-router-dom";
+import { RESTAURANT_LIST_URL } from "../utils/constants";
 
 const Body = () => {
     const [restaurantList, setRestaurantList] = useState([]);
+    const [filteredRestaurantList, setFilteredRestaurantList] = useState([]);
+    const [searchText, setSearchText] = useState("");
+    
     const updateList = () => {
         setRestaurantList(restaurantList.filter(restaurant => restaurant.info.avgRating > 4));
     }
@@ -13,23 +18,28 @@ const Body = () => {
     },[]);
 
     const fetchData = async ()=>{
-        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5327517&lng=88.376133&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+        const data = await fetch(RESTAURANT_LIST_URL);
         const json = await data.json();
         setRestaurantList(json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
+        setFilteredRestaurantList(json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
     }
 
-    if(restaurantList.length < 1) {
-        return <ShimmerUi/>;
+    const filter = ()=>{
+       const updatedList =  restaurantList.filter((restaurant)=>restaurant.info.name.toLowerCase().includes(searchText.toLowerCase()));
+        setFilteredRestaurantList(updatedList);
     }
+
     
-    return (
-        <>
+    return restaurantList.length == 0 ?
+     ( <ShimmerUi/>) :
+        (<>
+            <input name="searchbox" type="text" value={searchText} onChange={(e)=>{setSearchText(e.target.value)}}></input>
+            <button onClick={filter}>Search</button>
             <button onClick={updateList}>Sort on Review</button>
             <div className="restaurant-display">
-                {restaurantList.map(restaurant => <Card key={restaurant.info.id} restaurant={restaurant} />)}
+                {filteredRestaurantList.map(restaurant => <Link key={restaurant.info.id} to={"/restaurant/"+restaurant.info.id}><Card restaurant={restaurant} /></Link>)}
             </div>
-        </>
-    )
+        </>)
 }
 
 export default Body;
