@@ -1,24 +1,11 @@
 import { useEffect, useState } from "react";
-import { RESTAURANT_URL_POSTFIX, RESTAURANT_URL_PREFIX } from "../utils/constants";
 import ShimmerUi from "./ShimmerUi";
 import { useParams } from "react-router-dom";
+import useRestaurantData from "../utils/useRestaurantData";
 
 const Restaurant = () => {
     const { resId } = useParams();
-    const [restDetails, setRestDetails] = useState(null);
-
-    const fetchRestaurantData = async () => {
-        const url = RESTAURANT_URL_PREFIX + resId + RESTAURANT_URL_POSTFIX;
-        const data = await fetch(url);
-        const jsonData = await data.json();
-        setRestDetails(jsonData?.data?.cards);
-    }
-
-    useEffect(() => {
-        fetchRestaurantData();
-    }, []);
-
-
+    const restDetails = useRestaurantData(resId);
     if (restDetails == null) {
         return <ShimmerUi />
     }
