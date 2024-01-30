@@ -7,14 +7,18 @@ import About from "./component/about";
 import ContactPage from "./component/ContactPage";
 import Restaurant from "./component/Restaurant";
 import LoginPage from "./component/LoginPage";
+import appStore from "./utils/appStore";
+import { Provider } from "react-redux";
+import Cart from "./component/Cart";
 
 
 
 const SastaSwiggy = () => {
-    return (<>
+    return (
+    <Provider store={appStore}>
         <Header />
         <Outlet/>
-    </>)
+    </Provider>)
 }
 
 const routerConfig = createBrowserRouter([
@@ -40,6 +44,9 @@ const routerConfig = createBrowserRouter([
             },{
                 path:"/login",
                 element:<LoginPage/>
+            },{
+                path:"/cart",
+                element:<Cart/>
             }
         ]
     },
